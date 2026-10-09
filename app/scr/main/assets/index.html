@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Companion</title>
+<style>
+  body{margin:0;padding:16px;background:#0b0f14;color:#dbe7f3;font-family:sans-serif}
+  button,input{font-size:16px;padding:10px;border-radius:8px;border:1px solid #2a3a4c;background:#142030;color:#dbe7f3;margin:4px 0}
+  input{width:100%;box-sizing:border-box} pre{white-space:pre-wrap;background:#0f1822;padding:10px;border-radius:8px}
+</style></head>
+<body>
+<h3>Companion: native test</h3>
+<button onclick="log(Android.registerStub())">Register stub model</button>
+<button onclick="log(Android.status())">Status</button>
+<input id="p" value="tell me the plan for today">
+<button onclick="out.textContent='';Android.ask('stub',p.value)">Ask</button>
+<button onclick="Android.cancel()">Cancel</button>
+<pre id="out"></pre><pre id="log"></pre>
+<script>
+  const out=document.getElementById('out'), lg=document.getElementById('log'), p=document.getElementById('p');
+  function log(s){lg.textContent=s+"\n"+lg.textContent}
+  window.onToken=t=>out.textContent+=t;
+  window.onError=e=>log('error: '+e);
+  window.onDone=()=>log('done');
+</script></body></html>
